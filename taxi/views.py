@@ -1,3 +1,4 @@
+from os import name
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -54,9 +55,9 @@ class ManufacturerListView(generic.ListView):
         form = ManufacturersSearchForm(self.request.GET)
 
         if form.is_valid():
-            name = form.cleaned_data.get("name")
-            if name:
-                return queryset.filter(name__icontains=name)
+            manufacturer_name = form.cleaned_data.get("manufacturer_name")
+            if manufacturer_name:
+                return queryset.filter(name__icontains=manufacturer_name)
 
         return queryset
 
@@ -138,9 +139,9 @@ class DriverListView(LoginRequiredMixin, generic.ListView):
         form = DriverSearchForm(self.request.GET)
 
         if form.is_valid():
-            username = form.cleaned_data.get("username")
+            username = form.cleaned_data.get("name")
             if username:
-                return queryset.filter(username__icontains=username)
+                return queryset.filter(username__icontains=name)
 
         return queryset
 
